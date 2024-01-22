@@ -17,3 +17,5 @@ jobs:
     uses: plus3it/actions-workflows/.github/workflows/release.yml@c9c3d1193bd64bc2a9def11605608a98a3164d96
     secrets:
       release-token: ${{ secrets.GH_RELEASES_TOKEN }}
+    with:
+      mockstacktest-enable: false
