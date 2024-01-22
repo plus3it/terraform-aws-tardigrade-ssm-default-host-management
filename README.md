@@ -1,4 +1,10 @@
-# repo-template
+# terraform-aws-tardigrade-ssm-default-host-management
+
+Terraform module for managing SSM Default Host Management. This module also has
+options to enable AWS SSM Explorer, and configure an SSM Association to auto-update
+the SSM Agent on all EC2 instances. In total, the module instends to implement
+the same features as the [Quick Setup for Default Host Management in an AWS Organization](https://docs.aws.amazon.com/systems-manager/latest/userguide/quick-setup-default-host-management-configuration.html).
+
 Generic repo template for Plus3IT repositories
 
 To use this template:
