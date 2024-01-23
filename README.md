@@ -1,23 +1,37 @@
-# repo-template
-Generic repo template for Plus3IT repositories
+# terraform-aws-tardigrade-ssm-default-host-management
 
-To use this template:
+Terraform module for managing SSM Default Host Management. This module also has
+options to enable AWS SSM Explorer, and configure an SSM Association to auto-update
+the SSM Agent on all EC2 instances. In total, the module instends to implement
+the same features as the [Quick Setup for Default Host Management in an AWS Organization](https://docs.aws.amazon.com/systems-manager/latest/userguide/quick-setup-default-host-management-configuration.html).
 
-1. Select the green "Use this template" button, or [click here](https://github.com/plus3it/repo-template/generate).
-2. Select the repo Owner, give the repo a name, enter a description, select Public or Private, and click "Create repository from template".
-3. Clone the repository and create a new branch.
-4. Edit the following files to customize them for the new repository:
-    * `LICENSE`
-        * Near the end of the file, edit the date and change the repository name
-    * `CHANGELOG.template.md`
-        * Rename to `CHANGELOG.md`, replacing the repo-template changelog
-        * Edit templated items for the new repo
-    * `.bumpversion.cfg`
-        * Edit the version number for the new repo, ask team if not sure what to
-          start with
-    * `README.md`
-        * Replace contents for the new repo
-    * `.github/`
-        * Inspect dependabot and workflow files in case changes are needed for
-          the new repo
-5. Commit the changes and open a pull request
+<!-- BEGIN TFDOCS -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_caller_identity.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_partition.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
+| [aws_region.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_ssm_default_host_management"></a> [ssm\_default\_host\_management](#input\_ssm\_default\_host\_management) | Object of attributes for configuring SSM Default Host Management | <pre>object({<br>    explorer_settings = optional(list(string), [])<br>    role = optional(object({<br>      create = optional(bool, true)<br>      name   = optional(string)<br>    }), {})<br>    update_ssm_agent = optional(object({<br>      create              = optional(bool, true)<br>      association_name    = optional(string, "UpdateSSMAgent-do-not-delete")<br>      schedule_expression = optional(string, "rate(14 days)")<br>    }), {})<br>  })</pre> | `{}` | no |
+
+## Outputs
+
+No outputs.
+
+<!-- END TFDOCS -->
