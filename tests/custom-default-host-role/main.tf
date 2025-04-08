@@ -4,15 +4,13 @@ module "ssm_default_host_management" {
   ssm_default_host_management = {
     role = {
       create = false
-      name   = aws_iam_role.default_host_management.name
+      name   = aws_iam_role_policy_attachment.default_host_management.role
     }
   }
 }
 
 resource "aws_iam_role" "default_host_management" {
   name = "CustomDefaultEC2InstanceManagementRole"
-
-  managed_policy_arns = ["arn:${data.aws_partition.this.partition}:iam::aws:policy/AmazonSSMManagedEC2InstanceDefaultPolicy"]
 
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
@@ -27,6 +25,11 @@ resource "aws_iam_role" "default_host_management" {
       }
     ]
   })
+}
+
+resource "aws_iam_role_policy_attachment" "default_host_management" {
+  role       = aws_iam_role.default_host_management.name
+  policy_arn = "arn:${data.aws_partition.this.partition}:iam::aws:policy/AmazonSSMManagedEC2InstanceDefaultPolicy"
 }
 
 data "aws_partition" "this" {}
