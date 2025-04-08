@@ -28,7 +28,7 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_ssm_default_host_management"></a> [ssm\_default\_host\_management](#input\_ssm\_default\_host\_management) | Object of attributes for configuring SSM Default Host Management | <pre>object({<br>    explorer_settings = optional(list(string), [])<br>    role = optional(object({<br>      create = optional(bool, true)<br>      name   = optional(string)<br>    }), {})<br>    update_ssm_agent = optional(object({<br>      create              = optional(bool, true)<br>      association_name    = optional(string, "UpdateSSMAgent-do-not-delete")<br>      schedule_expression = optional(string, "rate(14 days)")<br>    }), {})<br>  })</pre> | `{}` | no |
+| <a name="input_ssm_default_host_management"></a> [ssm\_default\_host\_management](#input\_ssm\_default\_host\_management) | Object of attributes for configuring SSM Default Host Management | <pre>object({<br/>    explorer_settings = optional(list(string), [])<br/>    role = optional(object({<br/>      create = optional(bool, true)<br/>      name   = optional(string)<br/>    }), {})<br/>    update_ssm_agent = optional(object({<br/>      create              = optional(bool, true)<br/>      association_name    = optional(string, "UpdateSSMAgent-do-not-delete")<br/>      schedule_expression = optional(string, "rate(14 days)")<br/>    }), {})<br/>  })</pre> | `{}` | no |
 
 ## Outputs
 
