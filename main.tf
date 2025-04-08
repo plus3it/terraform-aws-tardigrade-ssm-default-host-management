@@ -34,8 +34,6 @@ resource "aws_iam_role" "default_host_management" {
   name = "AWSSystemsManagerDefaultEC2InstanceManagementRole"
   path = "/service-role/"
 
-  managed_policy_arns = ["arn:${local.partition}:iam::aws:policy/AmazonSSMManagedEC2InstanceDefaultPolicy"]
-
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
@@ -51,6 +49,20 @@ resource "aws_iam_role" "default_host_management" {
   })
 }
 
+resource "aws_iam_role_policy_attachment" "default_host_management" {
+  count = var.ssm_default_host_management.role.create ? 1 : 0
+
+  role       = aws_iam_role.default_host_management[0].name
+  policy_arn = "arn:${local.partition}:iam::aws:policy/AmazonSSMManagedEC2InstanceDefaultPolicy"
+}
+
+resource "aws_iam_role_policy_attachments_exclusive" "example" {
+  count = var.ssm_default_host_management.role.create ? 1 : 0
+
+  role_name   = aws_iam_role.default_host_management[0].name
+  policy_arns = [aws_iam_role_policy_attachment.default_host_management[0].policy_arn]
+}
+
 locals {
   account_id = data.aws_caller_identity.this.account_id
   partition  = data.aws_partition.this.partition
@@ -59,7 +71,7 @@ locals {
   # If the default host management role name is not specified, use aws_iam_role.
   # Otherwise, use the role name provided by the user.
   default_host_management_role = var.ssm_default_host_management.role.create ? (
-    trimprefix("${aws_iam_role.default_host_management[0].path}${aws_iam_role.default_host_management[0].name}", "/")
+    trimprefix("${aws_iam_role.default_host_management[0].path}${aws_iam_role_policy_attachment.default_host_management[0].role}", "/")
     ) : (
     var.ssm_default_host_management.role.name
   )
