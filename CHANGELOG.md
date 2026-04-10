@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### [2.0.1](https://github.com/plus3it/terraform-aws-tardigrade-ssm-default-host-management/releases/tag/2.0.1)
+
+**Released**: 2026.04.10
+
+**Summary**:
+
+*   Adjust ssm agent update association to match new console values
+
 ### [2.0.0](https://github.com/plus3it/terraform-aws-tardigrade-ssm-default-host-management/releases/tag/2.0.0)
 
 **Released**: 2025.10.14
