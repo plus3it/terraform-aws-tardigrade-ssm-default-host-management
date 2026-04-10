@@ -8,7 +8,9 @@ variable "ssm_default_host_management" {
     }), {})
     update_ssm_agent = optional(object({
       create              = optional(bool, true)
-      association_name    = optional(string, "UpdateSSMAgent-do-not-delete")
+      association_name    = optional(string, "SystemAssociationForSsmAgentUpdate")
+      max_concurrency     = optional(string, "50")
+      max_errors          = optional(string, "10%")
       schedule_expression = optional(string, "rate(14 days)")
     }), {})
   })

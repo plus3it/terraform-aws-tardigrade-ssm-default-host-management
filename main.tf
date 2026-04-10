@@ -22,6 +22,9 @@ resource "aws_ssm_association" "update_ssm_agent" {
   association_name    = var.ssm_default_host_management.update_ssm_agent.association_name
   schedule_expression = var.ssm_default_host_management.update_ssm_agent.schedule_expression
 
+  max_concurrency = var.ssm_default_host_management.update_ssm_agent.max_concurrency
+  max_errors      = var.ssm_default_host_management.update_ssm_agent.max_errors
+
   targets {
     key    = "InstanceIds"
     values = ["*"]
@@ -56,7 +59,7 @@ resource "aws_iam_role_policy_attachment" "default_host_management" {
   policy_arn = "arn:${local.partition}:iam::aws:policy/AmazonSSMManagedEC2InstanceDefaultPolicy"
 }
 
-resource "aws_iam_role_policy_attachments_exclusive" "example" {
+resource "aws_iam_role_policy_attachments_exclusive" "default_host_management" {
   count = var.ssm_default_host_management.role.create ? 1 : 0
 
   role_name   = aws_iam_role.default_host_management[0].name
